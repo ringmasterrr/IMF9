@@ -48,7 +48,7 @@
       <button id="deactivate" class="btn ghost full">Deactivate Travel Mode</button>
     </section>
 
-    <section class="empty-state">
+    <section id="inactiveTrip" class="empty-state">
       No active trip right now. Turn on Travel Mode when you are away from familiar places and want your trusted circle to see shorter check-in windows.
     </section>
 
@@ -66,8 +66,21 @@
       btn.classList.add("active");
       duration.textContent = btn.dataset.duration === "Custom" ? "Custom" : `${btn.dataset.duration}h`;
     });
-    document.getElementById("activate").onclick = () => document.getElementById("activeTrip").classList.remove("hidden");
-    document.getElementById("deactivate").onclick = () => document.getElementById("activeTrip").classList.add("hidden");
+    const activeTrip = document.getElementById("activeTrip");
+    const inactiveTrip = document.getElementById("inactiveTrip");
+    const activate = document.getElementById("activate");
+    document.getElementById("activate").onclick = () => {
+      activeTrip.classList.remove("hidden");
+      inactiveTrip.classList.add("hidden");
+      activate.textContent = "Travel Mode Active";
+      activate.setAttribute("disabled", "");
+    };
+    document.getElementById("deactivate").onclick = () => {
+      activeTrip.classList.add("hidden");
+      inactiveTrip.classList.remove("hidden");
+      activate.textContent = "Activate Travel Mode";
+      activate.removeAttribute("disabled");
+    };
   </script>
 </body>
 </html>

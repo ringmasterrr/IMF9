@@ -16,14 +16,16 @@
       </div>
       <a class="icon-btn" href="home.html" aria-label="Skip to home">→</a>
     </header>
+    <div id="stepDots" class="step-dots" aria-label="Onboarding progress"></div>
 
     <section class="glass-panel" data-step="0">
       <span class="chip safe">Life Signal Network</span>
-      <h2 class="app-title" style="margin-top:16px">Know they are okay.</h2>
+      <h2 class="app-title sm" style="margin-top:12px">Know they are okay.</h2>
       <p class="sub">IMF9 is not chat. It is a quiet safety layer for the people who care about each other.</p>
-      <div class="principle" style="grid-template-columns:1fr;margin-top:18px">
+      <div class="principle" style="grid-template-columns:1fr;margin-top:14px">
         <div>Safe</div><div>Needs help</div><div>Missed check-in</div>
       </div>
+      <button id="startSetup" class="btn primary full" style="margin-top:12px">Start Setup</button>
     </section>
 
     <section class="panel stack" data-step="1">
@@ -71,10 +73,15 @@
   </main>
   <script>
     const steps = [...document.querySelectorAll("[data-step]")];
+    const dots = document.getElementById("stepDots");
     let idx = 0;
-    function paint() { steps.forEach((s, i) => s.classList.toggle("hidden", i !== idx)); }
+    dots.innerHTML = steps.map(() => "<span></span>").join("");
+    function paint() {
+      steps.forEach((s, i) => s.classList.toggle("hidden", i !== idx));
+      [...dots.children].forEach((dot, i) => dot.classList.toggle("active", i === idx));
+    }
     function next() { idx = Math.min(idx + 1, steps.length - 1); paint(); }
-    document.querySelector("[data-step='0']").addEventListener("click", next);
+    document.getElementById("startSetup").addEventListener("click", next);
     document.getElementById("sendOtp").onclick = () => {
       const phone = document.getElementById("phone");
       const error = document.getElementById("phoneError");

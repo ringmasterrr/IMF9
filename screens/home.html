@@ -31,9 +31,9 @@
         <div class="metric"><strong>6</strong><span>Watching</span></div>
       </div>
       <div class="progress" aria-label="Check-in time remaining"><span style="--value: 94%"></span></div>
-      <button id="checkBtn" class="btn primary big-check full" style="margin-top:16px">I'M FINE</button>
+      <button id="checkBtn" class="btn primary big-check full" style="margin-top:12px">I'M FINE</button>
       <div class="actions" style="margin-top:9px">
-        <a class="btn danger" href="sos.html">SOS</a>
+        <a class="btn soft-danger" href="sos.html">SOS</a>
         <a class="btn travel" href="travel.html">Travel Mode</a>
       </div>
     </section>
@@ -96,7 +96,11 @@
       $("#lastCheck").textContent = "Checked in just now · 48h remaining";
       $("#remaining").textContent = "48h";
       $("#checkBtn").textContent = "CHECKED IN";
-      setTimeout(() => $("#checkBtn").textContent = "I'M FINE", 1300);
+      $("#checkBtn").setAttribute("disabled", "");
+      setTimeout(() => {
+        $("#checkBtn").textContent = "I'M FINE";
+        $("#checkBtn").removeAttribute("disabled");
+      }, 1300);
     };
     document.querySelectorAll(".emoji").forEach((b) => b.onclick = () => {
       document.querySelectorAll(".emoji").forEach(x => x.classList.remove("active"));

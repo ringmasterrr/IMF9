@@ -21,7 +21,7 @@
         <h2 class="app-title">Send SOS alert?</h2>
         <p class="sub">Press and hold for 2 seconds. IMF9 will notify all trusted contacts immediately.</p>
       </div>
-      <button id="holdBtn" class="btn danger big-check full">Hold to Send SOS</button>
+      <button id="holdBtn" class="btn soft-danger big-check full">Hold for SOS</button>
       <div class="progress danger"><span id="holdProgress" style="--value:0%"></span></div>
       <button class="btn ghost full" onclick="location.href='home.html'">Cancel</button>
     </section>
@@ -66,16 +66,23 @@
       timer = setInterval(() => {
         progress += 8;
         bar.style.setProperty("--value", `${Math.min(progress, 100)}%`);
-        if (progress >= 100) { clearInterval(timer); show(confirm); }
+        if (progress >= 100) { clearInterval(timer); hold.textContent = "Release to confirm"; show(confirm); }
       }, 120);
     }
-    function stop() { clearInterval(timer); if (progress < 100) { progress = 0; bar.style.setProperty("--value", "0%"); } }
+    function stop() {
+      clearInterval(timer);
+      if (progress < 100) {
+        progress = 0;
+        bar.style.setProperty("--value", "0%");
+        hold.textContent = "Hold for SOS";
+      }
+    }
     hold.addEventListener("pointerdown", start);
     hold.addEventListener("pointerup", stop);
     hold.addEventListener("pointerleave", stop);
     document.getElementById("sendNow").onclick = () => show(active);
-    document.getElementById("cancelConfirm").onclick = () => show(ready);
-    document.getElementById("clearSos").onclick = () => show(ready);
+    document.getElementById("cancelConfirm").onclick = () => { hold.textContent = "Hold for SOS"; show(ready); };
+    document.getElementById("clearSos").onclick = () => { hold.textContent = "Hold for SOS"; show(ready); };
   </script>
 </body>
 </html>

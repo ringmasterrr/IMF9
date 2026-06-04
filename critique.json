@@ -8,11 +8,11 @@
     },
     "hierarchy": {
       "score": 4,
-      "notes": "Home prioritizes personal status, countdown, and I'M FINE before secondary SOS, travel, network, and alert surfaces."
+      "notes": "Home prioritizes personal status, countdown, and I'M FINE before secondary SOS, travel, network, and alert surfaces. Emergency actions are present but visually calmer until confirmed."
     },
     "execution": {
       "score": 4,
-      "notes": "Premium rounded mobile components, glass panels, large hit targets, segmented controls, sheets, feed rows, and dark-mode tokens are consistent."
+      "notes": "Phone typography, cards, metrics, avatars, sheets, and nav now use a tighter mobile scale while preserving minimum touch targets and dark-mode support."
     },
     "specificity": {
       "score": 5,
