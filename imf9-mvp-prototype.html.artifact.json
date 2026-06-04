@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "kind": "html",
+  "title": "IMF9 MVP Prototype",
+  "entry": "imf9-mvp-prototype.html",
+  "renderer": "html",
+  "status": "complete",
+  "exports": [
+    "html",
+    "pdf",
+    "zip"
+  ],
+  "primary": true,
+  "createdAt": "2026-06-04T11:32:17.173Z",
+  "updatedAt": "2026-06-04T11:32:17.201Z",
+  "metadata": {
+    "identifier": "imf9-mvp-prototype",
+    "artifactType": "text/html",
+    "inferred": false
+  }
+}

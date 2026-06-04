@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>IMF9 Notifications</title>
+  <link rel="stylesheet" href="../css/imf9.css" />
+</head>
+<body class="app-body">
+  <main class="phone-app">
+    <div class="statusbar"><span>9:41</span><span class="island"></span><span>94%</span></div>
+    <header class="app-head">
+      <div><h1 class="app-title">Awareness</h1><p class="sub">A quiet feed of signals that matter.</p></div>
+      <button id="markRead" class="icon-btn" aria-label="Mark all read">✓</button>
+    </header>
+
+    <div class="segmented" role="tablist" aria-label="Notification filters">
+      <button class="active" data-filter="all">All</button>
+      <button data-filter="sos">SOS</button>
+      <button data-filter="missed">Missed</button>
+      <button data-filter="travel">Travel</button>
+    </div>
+
+    <section class="panel">
+      <div class="row"><div class="kicker">Today</div><span id="unread" class="pill">6 unread</span></div>
+      <article class="feed-item" data-kind="sos"><span class="feed-icon danger">!</span><div><strong>Neha triggered SOS</strong><div class="meta">Emergency alert active · just now</div></div><span class="chip danger">SOS</span></article>
+      <article class="feed-item" data-kind="missed"><span class="feed-icon warn">!</span><div><strong>Raj missed a check-in</strong><div class="meta">More than 48h since last signal</div></div><span class="chip warn">Missed</span></article>
+      <article class="feed-item" data-kind="travel"><span class="feed-icon travel">✈</span><div><strong>David activated Travel Mode</strong><div class="meta">Next check-in due in 8h</div></div><span class="chip travel">Travel</span></article>
+      <article class="feed-item" data-kind="all"><span class="feed-icon">✓</span><div><strong>Ravi checked in</strong><div class="meta">Safe · 4h ago</div></div><span class="chip safe">Safe</span></article>
+      <article class="feed-item" data-kind="all"><span class="feed-icon">+</span><div><strong>Maya accepted your request</strong><div class="meta">You can now view each other's status</div></div><span class="chip safe">Connected</span></article>
+      <article class="feed-item" data-kind="all"><span class="feed-icon">😊</span><div><strong>Sarah changed emoji</strong><div class="meta">Now feeling tired</div></div><span class="chip">Emoji</span></article>
+    </section>
+
+    <section id="empty" class="empty-state hidden">No updates in this category. IMF9 stays quiet when everyone is okay.</section>
+
+    <nav class="nav">
+      <a href="home.html">Home</a>
+      <a href="contacts.html">Network</a>
+      <a class="active" href="notifications.html">Alerts</a>
+      <a href="profile.html">Me</a>
+    </nav>
+  </main>
+  <script>
+    const filterBtns = document.querySelectorAll("[data-filter]");
+    const items = document.querySelectorAll(".feed-item");
+    const empty = document.getElementById("empty");
+    filterBtns.forEach(btn => btn.onclick = () => {
+      filterBtns.forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      const filter = btn.dataset.filter;
+      let visible = 0;
+      items.forEach(item => {
+        const show = filter === "all" || item.dataset.kind === filter;
+        item.classList.toggle("hidden", !show);
+        if (show) visible += 1;
+      });
+      empty.classList.toggle("hidden", visible !== 0);
+    });
+    document.getElementById("markRead").onclick = () => document.getElementById("unread").textContent = "All read";
+  </script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "kind": "html",
+  "title": "screens/sos.html",
+  "entry": "screens/sos.html",
+  "renderer": "html",
+  "status": "complete",
+  "exports": [
+    "html",
+    "pdf",
+    "zip"
+  ],
+  "createdAt": "2026-06-04T11:31:28.158Z",
+  "updatedAt": "2026-06-04T11:31:28.158Z",
+  "metadata": {
+    "inferred": true,
+    "reconciled": true
+  }
+}

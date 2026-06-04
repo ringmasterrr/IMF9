@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>IMF9 Trusted Network</title>
+  <link rel="stylesheet" href="../css/imf9.css" />
+</head>
+<body class="app-body">
+  <main class="phone-app">
+    <div class="statusbar"><span>9:41</span><span class="island"></span><span>98%</span></div>
+    <header class="app-head">
+      <div><h1 class="app-title">Trusted network</h1><p class="sub">Build a small circle of people who can see your signal.</p></div>
+      <button id="syncBtn" class="icon-btn" aria-label="Sync contacts">↻</button>
+    </header>
+
+    <section id="loading" class="loading-state hidden">
+      <span class="loading-dot"></span> Scanning contacts for IMF9 users...
+    </section>
+
+    <section class="glass-panel">
+      <div class="row">
+        <div>
+          <div class="kicker">Contact discovery</div>
+          <h2 class="app-title sm">8 trusted matches found</h2>
+        </div>
+        <span class="chip safe">Private</span>
+      </div>
+      <p class="sub">Connections are bi-directional. Both people must accept before any status is visible.</p>
+    </section>
+
+    <div class="segmented" role="tablist" aria-label="Contact filters">
+      <button class="active" data-filter="all">All</button>
+      <button data-filter="imf9">On IMF9</button>
+      <button data-filter="invite">Invite</button>
+    </div>
+
+    <section class="panel">
+      <div class="row"><div class="kicker">Existing IMF9 users</div><span class="pill">4</span></div>
+      <article class="contact row" data-kind="imf9">
+        <div class="contact-main"><div class="mini-avatar">R</div><div><div class="name">Ravi Sharma</div><div class="meta">Father · last active today</div></div></div>
+        <button class="btn primary">Add</button>
+      </article>
+      <article class="contact row" data-kind="imf9">
+        <div class="contact-main"><div class="mini-avatar">S</div><div><div class="name">Sarah Khan</div><div class="meta">Close friend · 2 mutual contacts</div></div></div>
+        <button class="btn primary">Add</button>
+      </article>
+      <article class="contact row" data-kind="imf9">
+        <div class="contact-main"><div class="mini-avatar">A</div><div><div class="name">Amit Verma</div><div class="meta">Brother · trusted contact</div></div></div>
+        <button class="btn primary">Add</button>
+      </article>
+    </section>
+
+    <section class="panel">
+      <div class="row"><div class="kicker">Invite contacts</div><span class="pill">SMS / WhatsApp</span></div>
+      <article class="contact row" data-kind="invite">
+        <div class="contact-main"><div class="mini-avatar">M</div><div><div class="name">Maya Kapoor</div><div class="meta">Not on IMF9 yet</div></div></div>
+        <button class="btn ghost invite">Invite</button>
+      </article>
+      <article class="contact row" data-kind="invite">
+        <div class="contact-main"><div class="mini-avatar">D</div><div><div class="name">David Miller</div><div class="meta">Business travel circle</div></div></div>
+        <button class="btn ghost invite">Invite</button>
+      </article>
+      <div id="emptyInvites" class="empty-state hidden">All visible contacts have been invited. New contacts will appear after the next sync.</div>
+    </section>
+
+    <section id="inviteSheet" class="sheet" aria-label="Invite confirmation">
+      <div class="row"><h2 class="app-title sm">Invitation sent</h2><button id="closeSheet" class="icon-btn">×</button></div>
+      <p class="sub">"I've joined IMF9. Add me to your trusted network so we can stay connected and know we're safe."</p>
+      <div class="actions"><button class="btn primary">WhatsApp</button><button class="btn ghost">SMS</button></div>
+    </section>
+    <div id="overlay" class="overlay"></div>
+
+    <nav class="nav">
+      <a href="register.html">Start</a>
+      <a class="active" href="contacts.html">Network</a>
+      <a href="home.html">Home</a>
+      <a href="notifications.html">Alerts</a>
+    </nav>
+  </main>
+  <script>
+    const filterBtns = document.querySelectorAll("[data-filter]");
+    const cards = document.querySelectorAll("[data-kind]");
+    filterBtns.forEach(btn => btn.onclick = () => {
+      filterBtns.forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      const filter = btn.dataset.filter;
+      cards.forEach(card => card.classList.toggle("hidden", filter !== "all" && card.dataset.kind !== filter));
+    });
+    document.querySelectorAll(".contact .btn.primary").forEach(btn => btn.onclick = () => {
+      btn.textContent = "Requested";
+      btn.classList.remove("primary");
+      btn.classList.add("ghost");
+    });
+    const overlay = document.getElementById("overlay");
+    const sheet = document.getElementById("inviteSheet");
+    document.querySelectorAll(".invite").forEach(btn => btn.onclick = () => { overlay.classList.add("open"); sheet.classList.add("open"); btn.textContent = "Sent"; });
+    document.getElementById("closeSheet").onclick = overlay.onclick = () => { overlay.classList.remove("open"); sheet.classList.remove("open"); };
+    document.getElementById("syncBtn").onclick = () => {
+      const loading = document.getElementById("loading");
+      loading.classList.remove("hidden");
+      setTimeout(() => loading.classList.add("hidden"), 1100);
+    };
+  </script>
+</body>
+</html>

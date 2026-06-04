@@ -1,0 +1,26 @@
+{
+  "kind": "critique-panel",
+  "score": 4,
+  "axes": {
+    "philosophy": {
+      "score": 4,
+      "notes": "The product stays focused on certainty, safety, and awareness. It avoids chat, social feeds, and noisy dashboard patterns."
+    },
+    "hierarchy": {
+      "score": 4,
+      "notes": "Home prioritizes personal status, countdown, and I'M FINE before secondary SOS, travel, network, and alert surfaces."
+    },
+    "execution": {
+      "score": 4,
+      "notes": "Premium rounded mobile components, glass panels, large hit targets, segmented controls, sheets, feed rows, and dark-mode tokens are consistent."
+    },
+    "specificity": {
+      "score": 5,
+      "notes": "Screens reflect IMF9-specific rules: 48h normal expiry, 24h travel expiry, emoji set, SOS confirmation, trusted contacts, and alert copy."
+    },
+    "restraint": {
+      "score": 4,
+      "notes": "Color is used for trust and state meaning: emerald for reassurance, amber for warning, red only for SOS/missed check-ins, and blue only for travel."
+    }
+  }
+}

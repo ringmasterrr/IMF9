@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>IMF9 Home</title>
+  <link rel="stylesheet" href="../css/imf9.css" />
+</head>
+<body class="app-body">
+  <main class="phone-app">
+    <div class="statusbar"><span>9:41</span><span class="island"></span><span>100%</span></div>
+    <header class="app-head">
+      <div><h1 class="app-title">My status</h1><p id="lastCheck" class="sub">Checked in 3 hours ago · 45h remaining</p></div>
+      <button id="emojiOpen" class="icon-btn" aria-label="Update emoji">😊</button>
+    </header>
+
+    <section class="glass-panel">
+      <div class="row">
+        <div class="contact-main">
+          <div id="myAvatar" class="avatar">T</div>
+          <div>
+            <div class="kicker">Tashish</div>
+            <h2 id="mood" class="app-title sm">😊 Safe</h2>
+          </div>
+        </div>
+        <span class="status-ring"></span>
+      </div>
+      <div class="metric-row">
+        <div class="metric"><strong id="remaining">45h</strong><span>Until expiry</span></div>
+        <div class="metric"><strong>48h</strong><span>Normal rule</span></div>
+        <div class="metric"><strong>6</strong><span>Watching</span></div>
+      </div>
+      <div class="progress" aria-label="Check-in time remaining"><span style="--value: 94%"></span></div>
+      <button id="checkBtn" class="btn primary big-check full" style="margin-top:16px">I'M FINE</button>
+      <div class="actions" style="margin-top:9px">
+        <a class="btn danger" href="sos.html">SOS</a>
+        <a class="btn travel" href="travel.html">Travel Mode</a>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="row">
+        <div><div class="kicker">My Network</div><p class="sub">Visible safety signals from trusted contacts.</p></div>
+        <a class="pill" href="notifications.html">6 updates</a>
+      </div>
+      <article class="contact row">
+        <div class="contact-main"><span class="status-ring"></span><span class="mini-avatar">R</span><div><div class="name">Ravi 😊</div><div class="meta">Checked in 4h ago · safe</div></div></div><span class="chip safe">Green</span>
+      </article>
+      <article class="contact row">
+        <div class="contact-main"><span class="status-ring"></span><span class="mini-avatar">A</span><div><div class="name">Amit 💪</div><div class="meta">Checked in 9h ago · strong</div></div></div><span class="chip safe">Green</span>
+      </article>
+      <article class="contact row">
+        <div class="contact-main"><span class="status-ring warn"></span><span class="mini-avatar">S</span><div><div class="name">Sarah 😴</div><div class="meta">38h since check-in · approaching expiry</div></div></div><span class="chip warn">Amber</span>
+      </article>
+      <article class="contact row">
+        <div class="contact-main"><span class="status-ring danger"></span><span class="mini-avatar">J</span><div><div class="name">Raj 😔</div><div class="meta">Missed check-in · alert sent</div></div></div><span class="chip danger">Red</span>
+      </article>
+      <article class="contact row">
+        <div class="contact-main"><span class="status-ring travel"></span><span class="mini-avatar">D</span><div><div class="name">David 😊 ✈</div><div class="meta">Travel mode · 8h remaining</div></div></div><span class="chip travel">Travel</span>
+      </article>
+      <article class="contact row">
+        <div class="contact-main"><span class="status-ring danger"></span><span class="mini-avatar sos">N</span><div><div class="name">Neha SOS</div><div class="meta">Emergency alert active · tap for details</div></div></div><a class="chip danger" href="sos.html">SOS</a>
+      </article>
+    </section>
+
+    <div id="overlay" class="overlay"></div>
+    <section id="emojiSheet" class="sheet" aria-label="Emoji status picker">
+      <div class="row"><h2 class="app-title sm">How do you feel?</h2><button id="emojiClose" class="icon-btn">×</button></div>
+      <p class="sub">Your latest emoji is visible to trusted contacts.</p>
+      <div class="emoji-grid" style="margin-top:12px">
+        <button class="emoji active"><span class="symbol">😊</span>Happy</button><button class="emoji"><span class="symbol">😎</span>Great</button>
+        <button class="emoji"><span class="symbol">💪</span>Strong</button><button class="emoji"><span class="symbol">❤️</span>Loved</button>
+        <button class="emoji"><span class="symbol">🙏</span>Grateful</button><button class="emoji"><span class="symbol">😴</span>Tired</button>
+        <button class="emoji"><span class="symbol">😔</span>Sad</button><button class="emoji"><span class="symbol">😰</span>Stressed</button>
+        <button class="emoji"><span class="symbol">🤒</span>Unwell</button><button class="emoji"><span class="symbol">🤔</span>Busy</button>
+      </div>
+    </section>
+
+    <nav class="nav">
+      <a class="active" href="home.html">Home</a>
+      <a href="contacts.html">Network</a>
+      <a href="notifications.html">Alerts</a>
+      <a href="profile.html">Me</a>
+    </nav>
+  </main>
+  <script>
+    const $ = (s) => document.querySelector(s);
+    const overlay = $("#overlay");
+    const sheet = $("#emojiSheet");
+    function openSheet() { overlay.classList.add("open"); sheet.classList.add("open"); }
+    function closeSheet() { overlay.classList.remove("open"); sheet.classList.remove("open"); }
+    $("#emojiOpen").onclick = openSheet;
+    $("#emojiClose").onclick = closeSheet;
+    overlay.onclick = closeSheet;
+    $("#checkBtn").onclick = () => {
+      $("#lastCheck").textContent = "Checked in just now · 48h remaining";
+      $("#remaining").textContent = "48h";
+      $("#checkBtn").textContent = "CHECKED IN";
+      setTimeout(() => $("#checkBtn").textContent = "I'M FINE", 1300);
+    };
+    document.querySelectorAll(".emoji").forEach((b) => b.onclick = () => {
+      document.querySelectorAll(".emoji").forEach(x => x.classList.remove("active"));
+      b.classList.add("active");
+      const symbol = b.querySelector(".symbol").textContent;
+      const label = b.textContent.replace(symbol, "").trim();
+      $("#mood").textContent = `${symbol} ${label}`;
+      $("#emojiOpen").textContent = symbol;
+      closeSheet();
+    });
+  </script>
+</body>
+</html>

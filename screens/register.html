@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>IMF9 Onboarding</title>
+  <link rel="stylesheet" href="../css/imf9.css" />
+</head>
+<body class="app-body">
+  <main class="phone-app">
+    <div class="statusbar"><span>9:41</span><span class="island"></span><span>100%</span></div>
+    <header class="app-head">
+      <div>
+        <h1 class="app-title">Welcome to IMF9</h1>
+        <p class="sub">Set up a life signal in under one minute.</p>
+      </div>
+      <a class="icon-btn" href="home.html" aria-label="Skip to home">→</a>
+    </header>
+
+    <section class="glass-panel" data-step="0">
+      <span class="chip safe">Life Signal Network</span>
+      <h2 class="app-title" style="margin-top:16px">Know they are okay.</h2>
+      <p class="sub">IMF9 is not chat. It is a quiet safety layer for the people who care about each other.</p>
+      <div class="principle" style="grid-template-columns:1fr;margin-top:18px">
+        <div>Safe</div><div>Needs help</div><div>Missed check-in</div>
+      </div>
+    </section>
+
+    <section class="panel stack" data-step="1">
+      <div><div class="kicker">Phone number</div><p class="sub">Used for secure sign-in and trusted contact discovery.</p></div>
+      <input id="phone" class="field" inputmode="tel" value="+91 98765 43210" aria-label="Phone number" />
+      <button id="sendOtp" class="btn primary full">Send OTP</button>
+      <div id="phoneError" class="error-state hidden">Enter a valid mobile number before continuing.</div>
+    </section>
+
+    <section class="panel stack" data-step="2">
+      <div><div class="kicker">Verification</div><p class="sub">Enter the 4-digit code sent to your phone.</p></div>
+      <div class="otp-row">
+        <input class="field" maxlength="1" value="4" aria-label="OTP digit 1" />
+        <input class="field" maxlength="1" value="9" aria-label="OTP digit 2" />
+        <input class="field" maxlength="1" value="1" aria-label="OTP digit 3" />
+        <input class="field" maxlength="1" value="6" aria-label="OTP digit 4" />
+      </div>
+      <button id="verifyOtp" class="btn primary full">Verify</button>
+    </section>
+
+    <section class="panel stack" data-step="3">
+      <div class="photo-setup">T</div>
+      <div style="text-align:center">
+        <h2 class="app-title sm">Add your profile photo</h2>
+        <p class="sub">Your trusted contacts recognize status faster with a face.</p>
+      </div>
+      <input id="name" class="field" value="Tashish" aria-label="First name" />
+      <button id="saveProfile" class="btn primary full">Save Profile</button>
+    </section>
+
+    <section class="panel stack" data-step="4">
+      <span class="chip travel">Contacts permission</span>
+      <h2 class="app-title sm">Find trusted people already on IMF9.</h2>
+      <p class="sub">We only use contacts to identify existing IMF9 users and send invites you choose.</p>
+      <div class="notice">No feed. No followers. No messages. Only trusted status visibility.</div>
+      <a class="btn primary full" href="contacts.html">Allow Contacts</a>
+      <button class="btn ghost full">Not Now</button>
+    </section>
+
+    <nav class="nav">
+      <a class="active" href="register.html">Start</a>
+      <a href="contacts.html">Network</a>
+      <a href="home.html">Home</a>
+    </nav>
+  </main>
+  <script>
+    const steps = [...document.querySelectorAll("[data-step]")];
+    let idx = 0;
+    function paint() { steps.forEach((s, i) => s.classList.toggle("hidden", i !== idx)); }
+    function next() { idx = Math.min(idx + 1, steps.length - 1); paint(); }
+    document.querySelector("[data-step='0']").addEventListener("click", next);
+    document.getElementById("sendOtp").onclick = () => {
+      const phone = document.getElementById("phone");
+      const error = document.getElementById("phoneError");
+      if (phone.value.replace(/\D/g, "").length < 10) { phone.classList.add("error"); error.classList.remove("hidden"); return; }
+      phone.classList.remove("error"); error.classList.add("hidden"); next();
+    };
+    document.getElementById("verifyOtp").onclick = next;
+    document.getElementById("saveProfile").onclick = next;
+    paint();
+  </script>
+</body>
+</html>

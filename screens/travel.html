@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>IMF9 Travel Mode</title>
+  <link rel="stylesheet" href="../css/imf9.css" />
+</head>
+<body class="app-body">
+  <main class="phone-app">
+    <div class="statusbar"><span>9:41</span><span class="island"></span><span>91%</span></div>
+    <header class="app-head">
+      <div><h1 class="app-title">Travel mode</h1><p class="sub">Shorter check-in windows for unfamiliar environments.</p></div>
+      <a class="icon-btn" href="home.html" aria-label="Back home">←</a>
+    </header>
+
+    <section class="glass-panel">
+      <div class="row">
+        <div><span class="chip travel">✈ Visible to contacts</span><h2 class="app-title" style="margin-top:12px">Check in every 24 hours.</h2></div>
+      </div>
+      <p class="sub">Green under 12h, amber from 12-24h, red after 24h with a missed travel check-in alert.</p>
+    </section>
+
+    <section class="panel">
+      <div class="kicker">Choose duration</div>
+      <div class="segmented" style="margin-top:10px">
+        <button data-duration="24">24h</button>
+        <button class="active" data-duration="48">48h</button>
+        <button data-duration="72">72h</button>
+        <button data-duration="Custom">Custom</button>
+      </div>
+      <div class="metric-row">
+        <div class="metric"><strong id="duration">48h</strong><span>Trip duration</span></div>
+        <div class="metric"><strong>8h</strong><span>Next check-in</span></div>
+        <div class="metric"><strong>5</strong><span>Contacts</span></div>
+      </div>
+      <button id="activate" class="btn travel full">Activate Travel Mode</button>
+    </section>
+
+    <section id="activeTrip" class="panel stack hidden">
+      <div class="row"><div><div class="kicker">Active trip</div><h2 class="app-title sm">Delhi → Singapore</h2></div><span class="chip travel">✈ Active</span></div>
+      <div class="progress warn"><span style="--value:66%"></span></div>
+      <p class="sub">8h until next travel check-in. Enhanced reminder will trigger at 6h remaining.</p>
+      <div class="timeline">
+        <div class="timeline-item"><span class="timeline-dot"></span><div><strong>Travel mode activated</strong><br><span class="meta">Ravi, Sarah, Amit, Maya, and David can see the airplane indicator.</span></div></div>
+        <div class="timeline-item"><span class="timeline-dot"></span><div><strong>Next reminder</strong><br><span class="meta">Quiet reminder first, stronger alert if missed.</span></div></div>
+      </div>
+      <button id="deactivate" class="btn ghost full">Deactivate Travel Mode</button>
+    </section>
+
+    <section class="empty-state">
+      No active trip right now. Turn on Travel Mode when you are away from familiar places and want your trusted circle to see shorter check-in windows.
+    </section>
+
+    <nav class="nav">
+      <a href="home.html">Home</a>
+      <a href="contacts.html">Network</a>
+      <a class="active" href="travel.html">Travel</a>
+      <a href="profile.html">Me</a>
+    </nav>
+  </main>
+  <script>
+    const duration = document.getElementById("duration");
+    document.querySelectorAll("[data-duration]").forEach(btn => btn.onclick = () => {
+      document.querySelectorAll("[data-duration]").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      duration.textContent = btn.dataset.duration === "Custom" ? "Custom" : `${btn.dataset.duration}h`;
+    });
+    document.getElementById("activate").onclick = () => document.getElementById("activeTrip").classList.remove("hidden");
+    document.getElementById("deactivate").onclick = () => document.getElementById("activeTrip").classList.add("hidden");
+  </script>
+</body>
+</html>

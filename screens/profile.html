@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>IMF9 Profile</title>
+  <link rel="stylesheet" href="../css/imf9.css" />
+</head>
+<body class="app-body">
+  <main class="phone-app">
+    <div class="statusbar"><span>9:41</span><span class="island"></span><span>97%</span></div>
+    <header class="app-head">
+      <div><h1 class="app-title">Profile</h1><p class="sub">Your signal, contacts, and account controls.</p></div>
+      <button id="editBtn" class="icon-btn" aria-label="Edit profile">✎</button>
+    </header>
+
+    <section class="glass-panel stack" style="text-align:center">
+      <div class="avatar large" style="margin:0 auto">T</div>
+      <div>
+        <h2 id="displayName" class="app-title sm">Tashish</h2>
+        <p id="displayMood" class="sub">😊 Happy · checked in 3 hours ago</p>
+      </div>
+      <div class="metric-row">
+        <div class="metric"><strong>6</strong><span>Contacts</span></div>
+        <div class="metric"><strong>12</strong><span>Check-ins</span></div>
+        <div class="metric"><strong>0</strong><span>Open alerts</span></div>
+      </div>
+    </section>
+
+    <section id="editPanel" class="panel stack hidden">
+      <div class="kicker">Edit profile</div>
+      <input id="nameInput" class="field" value="Tashish" aria-label="Name" />
+      <div class="emoji-grid">
+        <button class="emoji active"><span class="symbol">😊</span>Happy</button>
+        <button class="emoji"><span class="symbol">😎</span>Great</button>
+        <button class="emoji"><span class="symbol">🙏</span>Grateful</button>
+        <button class="emoji"><span class="symbol">🤔</span>Busy</button>
+      </div>
+      <button id="saveProfile" class="btn primary full">Save Changes</button>
+    </section>
+
+    <section class="panel">
+      <div class="row"><div><div class="kicker">Connected contacts</div><p class="sub">Bi-directional trusted network.</p></div><a class="pill" href="contacts.html">Manage</a></div>
+      <article class="contact row"><div class="contact-main"><span class="mini-avatar">R</span><div><div class="name">Ravi Sharma</div><div class="meta">Father · can view your status</div></div></div><span class="status-ring"></span></article>
+      <article class="contact row"><div class="contact-main"><span class="mini-avatar">S</span><div><div class="name">Sarah Khan</div><div class="meta">Close friend · amber reminder enabled</div></div></div><span class="status-ring warn"></span></article>
+      <article class="contact row"><div class="contact-main"><span class="mini-avatar">A</span><div><div class="name">Amit Verma</div><div class="meta">Brother · SOS priority contact</div></div></div><span class="status-ring"></span></article>
+    </section>
+
+    <section class="panel stack">
+      <div class="row"><div><div class="kicker">Check-in history</div><p class="sub">Recent certainty signals.</p></div><span class="chip safe">Healthy</span></div>
+      <div class="timeline">
+        <div class="timeline-item"><span class="timeline-dot"></span><div><strong>Today, 6:41 AM</strong><br><span class="meta">I'm Fine · 😊 Happy</span></div></div>
+        <div class="timeline-item"><span class="timeline-dot"></span><div><strong>Yesterday, 8:12 AM</strong><br><span class="meta">I'm Fine · 🙏 Grateful</span></div></div>
+        <div class="timeline-item"><span class="timeline-dot"></span><div><strong>Monday, 7:58 AM</strong><br><span class="meta">I'm Fine · 🤔 Busy</span></div></div>
+      </div>
+    </section>
+
+    <section class="panel stack">
+      <div class="row"><div><div class="kicker">Travel controls</div><p class="sub">Enhanced safety window when away from home.</p></div><span id="travelBadge" class="chip">Off</span></div>
+      <div class="actions"><a class="btn travel" href="travel.html">Configure</a><button id="toggleTravel" class="btn ghost">Enable 24h rule</button></div>
+    </section>
+
+    <section class="panel stack">
+      <div class="kicker">Account settings</div>
+      <button class="btn ghost full">Notification Preferences</button>
+      <button class="btn ghost full">Privacy and Trusted Contacts</button>
+      <button class="btn danger full">Delete Account</button>
+    </section>
+
+    <nav class="nav">
+      <a href="home.html">Home</a>
+      <a href="contacts.html">Network</a>
+      <a href="notifications.html">Alerts</a>
+      <a class="active" href="profile.html">Me</a>
+    </nav>
+  </main>
+  <script>
+    const edit = document.getElementById("editPanel");
+    const nameInput = document.getElementById("nameInput");
+    const displayName = document.getElementById("displayName");
+    const displayMood = document.getElementById("displayMood");
+    let mood = "😊 Happy";
+    document.getElementById("editBtn").onclick = () => edit.classList.toggle("hidden");
+    document.querySelectorAll(".emoji").forEach(btn => btn.onclick = () => {
+      document.querySelectorAll(".emoji").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      const symbol = btn.querySelector(".symbol").textContent;
+      mood = `${symbol} ${btn.textContent.replace(symbol, "").trim()}`;
+    });
+    document.getElementById("saveProfile").onclick = () => {
+      displayName.textContent = nameInput.value || "Tashish";
+      displayMood.textContent = `${mood} · checked in 3 hours ago`;
+      edit.classList.add("hidden");
+    };
+    document.getElementById("toggleTravel").onclick = (e) => {
+      const badge = document.getElementById("travelBadge");
+      const active = badge.textContent === "Off";
+      badge.textContent = active ? "On" : "Off";
+      badge.classList.toggle("travel", active);
+      e.currentTarget.textContent = active ? "Disable 24h rule" : "Enable 24h rule";
+    };
+  </script>
+</body>
+</html>

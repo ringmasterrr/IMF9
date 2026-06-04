@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>IMF9 SOS</title>
+  <link rel="stylesheet" href="../css/imf9.css" />
+</head>
+<body class="app-body">
+  <main class="phone-app">
+    <div class="statusbar"><span>9:41</span><span class="island"></span><span>96%</span></div>
+    <header class="app-head">
+      <div><h1 class="app-title">SOS</h1><p class="sub">Emergency alerts for trusted contacts only.</p></div>
+      <a class="icon-btn" href="home.html" aria-label="Back home">←</a>
+    </header>
+
+    <section id="readyState" class="glass-panel stack">
+      <span class="chip danger">Accidental activation protection</span>
+      <div class="avatar large">T</div>
+      <div style="text-align:center">
+        <h2 class="app-title">Send SOS alert?</h2>
+        <p class="sub">Press and hold for 2 seconds. IMF9 will notify all trusted contacts immediately.</p>
+      </div>
+      <button id="holdBtn" class="btn danger big-check full">Hold to Send SOS</button>
+      <div class="progress danger"><span id="holdProgress" style="--value:0%"></span></div>
+      <button class="btn ghost full" onclick="location.href='home.html'">Cancel</button>
+    </section>
+
+    <section id="confirmState" class="panel stack hidden">
+      <h2 class="app-title sm">Confirm emergency alert</h2>
+      <p class="sub">This sends: "SOS Alert: Tashish has triggered an emergency alert."</p>
+      <div class="notice">Your profile picture will show an active red badge until you clear SOS.</div>
+      <div class="actions"><button id="sendNow" class="btn danger">Yes, Send</button><button id="cancelConfirm" class="btn ghost">No</button></div>
+    </section>
+
+    <section id="activeState" class="glass-panel stack hidden">
+      <span class="chip danger">SOS active</span>
+      <div class="avatar large sos">T</div>
+      <div style="text-align:center">
+        <h2 class="app-title">Contacts notified</h2>
+        <p class="sub">SOS remains active until manually cleared.</p>
+      </div>
+      <article class="feed-item"><span class="feed-icon danger">!</span><div><strong>Ravi notified</strong><div class="meta">Push delivered just now</div></div><span class="chip danger">SOS</span></article>
+      <article class="feed-item"><span class="feed-icon danger">!</span><div><strong>Sarah notified</strong><div class="meta">Push delivered just now</div></div><span class="chip danger">SOS</span></article>
+      <article class="feed-item"><span class="feed-icon danger">!</span><div><strong>Amit notified</strong><div class="meta">Push delivered just now</div></div><span class="chip danger">SOS</span></article>
+      <button id="clearSos" class="btn ghost full">Clear SOS</button>
+    </section>
+
+    <nav class="nav">
+      <a href="home.html">Home</a>
+      <a href="contacts.html">Network</a>
+      <a class="active" href="sos.html">SOS</a>
+      <a href="profile.html">Me</a>
+    </nav>
+  </main>
+  <script>
+    const ready = document.getElementById("readyState");
+    const confirm = document.getElementById("confirmState");
+    const active = document.getElementById("activeState");
+    const hold = document.getElementById("holdBtn");
+    const bar = document.getElementById("holdProgress");
+    let timer, progress = 0;
+    function show(el) { [ready, confirm, active].forEach(x => x.classList.add("hidden")); el.classList.remove("hidden"); }
+    function start() {
+      progress = 0;
+      timer = setInterval(() => {
+        progress += 8;
+        bar.style.setProperty("--value", `${Math.min(progress, 100)}%`);
+        if (progress >= 100) { clearInterval(timer); show(confirm); }
+      }, 120);
+    }
+    function stop() { clearInterval(timer); if (progress < 100) { progress = 0; bar.style.setProperty("--value", "0%"); } }
+    hold.addEventListener("pointerdown", start);
+    hold.addEventListener("pointerup", stop);
+    hold.addEventListener("pointerleave", stop);
+    document.getElementById("sendNow").onclick = () => show(active);
+    document.getElementById("cancelConfirm").onclick = () => show(ready);
+    document.getElementById("clearSos").onclick = () => show(ready);
+  </script>
+</body>
+</html>
